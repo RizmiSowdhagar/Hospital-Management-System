@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Morris Health Services</title>
+    <style>
+        html, body{
+            font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+        }
+        
+        body{
+            background-image: url("https://img.freepik.com/premium-photo/clinical-serenity-empty-hospital-corridor-with-room-background_856434-144.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 240vh; /* Increase the height of the body */
+}
+
+header {
+    background-color: #007bff;
+    opacity: 40%;
+    width: 100%;
+    height: 14%;
+    margin-top: 2%;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    position: absolute;
+}
+h1{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: bold;
+    position: relative;
+    position:absolute;
+    margin-left: 37%;
+    margin-top: 5.5%;
+}
+
+
+.background-box {
+    background-color:#0056b3 ; /* Black color with 50% opacity */
+    width: 35%;
+    height: 830px; /* Adjust height as needed */
+    padding: 20px;
+    opacity: 30%;
+    margin-top: 26%;
+    margin-left: 32%;
+    border-radius: 10px;
+position: relative;
+position: absolute;
+}
+h2{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: bold;
+    position: relative;
+    position: absolute;
+    margin-top: 14%;
+    margin-left: 38%;
+}
+form{
+    position: relative;
+    position: absolute;
+    margin-top: 33%;
+    margin-left: 36%;
+}
+input[type='text']{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+            width: 200px; /* Set the width of text input fields */
+            height: 30px;
+            padding: 8px; /* Add padding for better appearance */
+}
+label {
+            display: inline-block; /* Display labels and inputs inline */
+            width: 100px; /* Set the width of labels */
+            text-align: right; /* Align label text to the right */
+            margin-right: 10px; /* Add some margin between labels and inputs */
+            margin-bottom: 7%;
+        }
+        button[type="submit"] {
+            display: block; /* Display the submit button as a block element */
+            width: 100%; /* Set the width to fill the entire form width */
+            padding: 10px; /* Add padding for better appearance */
+            margin-left: 3%;
+        }
+        button{
+            padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 25%;
+        }
+        button:hover{
+            background-color: #0056b3;
+        }
+        .buttons{
+    position: relative;
+    position: absolute;
+    margin-top: 18%;
+    margin-left: 36.5%;
+    width: 33%;
+}
+table {
+            border-collapse: collapse;
+            width: 100%;
+            position: relative;
+            position: absolute;
+            margin-top: 28%;
+            margin-left: 0%;
+            background-color: rgba(255, 255, 255, 0.8);
+
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+#registration-form {
+            display: none;
+        }
+        .employee-records {
+            display: none;
+        }
+        #update-form{
+            display: none;
+        }
+    </style>
+    <!-- Include Morris.js and its dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+</head>
+<body>
+    <header>
+    </header>
+    <h1>Morris Health Services</h1>
+    <main>
+        <h2>Employee Management System</h2>
+        <a href="employeeAndFacility.html">
+            <button style="position: relative; position: absolute; margin-top: 18%; margin-left: 1%;  width: 5%; ">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </button>
+        </a>
+    <div class="buttons">
+        <button class="button" id="add-button" onclick="showRegistrationForm()">ADD</button>
+        <form style="margin-top:-7.5%; margin-left: 51.5%;" action="view_employee.php" method="post">
+            <button style="width: 100px;  " type="submit" onclick="showEmployeeRecords()">VIEW</button>
+        </form>
+        
+        <button class="button" onclick="showUpdateForm()">UPDATE</button>
+    </div>
+    <div id="registration-form">
+        <div class="background-box">
+        
+        </div>
+        <h2 style="margin-top: 28%;">Employee Registration Form</h2>
+        <form action="employee_insert.php" method="post">
+            <label for="empid">Employee ID:</label>
+            <input type="text" placeholder="Enter Employee ID" id="empid" name="empid" required><br>
+
+            <label for="empid">SSN:</label>
+            <input type="text" placeholder="Enter SSN" id="ssn" name="ssn" required><br>
+    
+            <label for="fname">First Name:</label>
+            <input type="text" placeholder="Enter First Name" id="fname" name="fname" required><br>
+    
+            <label for="minit">Middle Initial:</label>
+            <input type="text" placeholder="Enter Middle Initial" id="minit" name="minit"><br>
+    
+            <label for="lname">Last Name:</label>
+            <input type="text" placeholder="Enter Last Name" id="lname" name="lname" required><br>
+    
+            <label for="street">Street:</label>
+            <input type="text" placeholder="Enter Street" id="street" name="street" required><br>
+    
+            <label for="city">City:</label>
+            <input type="text" placeholder="Enter City" id="city" name="city" required><br>
+    
+            <label for="state">State:</label>
+            <input type="text" placeholder="Enter State" id="state" name="state" required><br>
+    
+            <label for="zip_code">ZIP Code:</label>
+            <input type="text" placeholder="Enter ZIP Code" id="zip_code" name="zip_code" required><br>
+
+            <label for="salary">Salary:</label>
+            <input type="text" placeholder="Enter Salary" id="salary" name="salary" required><br>
+
+            <label for="hire_date">Hire date:</label>
+            <input type="date" placeholder="Enter Hire Date" id="hire_date" name="hire_date" required><br>
+
+            <label for="job_class">Job Class:</label>
+            <select id="job_class" name="job_class" onchange="showJobClassFields()" required>
+                <option value="">Select job class</option>
+                <option value="Nurse">Nurse</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Other HCP">Other HCP</option>
+                <option value="Admin">Admin</option>
+            </select>
+            <br>
+
+            <div id="nurse-fields" style="display: none;">
+                <label for="empid">Nurse Empid:</label>
+                <input type="text" placeholder="Enter Nurse Empid" id="nurseEmpid" name="nurse_Empid"><br>
+                <label for="certification">Certification:</label>
+                <input type="text" placeholder="Enter Certification" id="certification" name="certification"><br>
+            </div>
+
+            <div id="doc-fields" style="display: none;">
+                <label for="empid">Doctor Empid:</label>
+                <input type="text" placeholder="Enter Doctor Empid" id="docEmpid" name="docEmpid"><br>
+                <label for="speciality">Speciality:</label>
+                <input type="text" placeholder="Enter Speciality" id="speciality" name="speciality" ><br>
+                <label for="bc_date">BC Date:</label>
+                <input type="date" placeholder="Enter BC Date" id="bc_date" name="bc_date"><br>
+            </div>
+
+            <div id="admin-fields" style="display: none;">
+                <label for="empid">Admin Empid:</label>
+                <input type="text" placeholder="Enter Admin Empid" id="adminEmpid" name="adminEmpid"><br>
+                <label for="jobtitle">Job Title:</label>
+                <input type="text" placeholder="Enter Job Title" id="jobtitle" name="jobtitle" ><br>
+            </div>
+
+            <div id="otherhcp-fields" style="display: none;">
+                <label for="empid">Other HCP Empid:</label>
+                <input type="text" placeholder="Enter Other HCP Empid" id="otherhcpEmpid" name="otherhcpEmpid"><br>
+                <label for="job_title">Job Title:</label>
+                <input type="text" placeholder="Enter Job Title" id="job_title" name="job_title"><br>
+            </div>
+
+            <label for="facid">Facility ID:</label>
+            <input type="text" placeholder="Enter Facility ID" id="facid" name="facid" required><br><br>
+    
+            <button type="submit">Submit</button>
+            
+        </form>
+        </div>
+        <script >
+            function showPage(pageName) {
+                // Hide all pages
+                var pages = document.getElementsByClassName('page');
+                for (var i = 0; i < pages.length; i++) {
+                    pages[i].style.display = 'none';
+                }
+                // Show the selected page
+                document.getElementById(pageName + '-page').style.display = 'block';
+            }
+        
+            // Function to show/hide jobclass fields
+            function showJobClassFields() {
+                var jobClass = document.getElementById('job_class').value;
+                var empidField = document.getElementById('empid');
+                var nurseFields = document.getElementById('nurse-fields');
+                var docFields = document.getElementById('doc-fields');
+                var adminFields = document.getElementById('admin-fields');
+                var otherhcpFields = document.getElementById('otherhcp-fields');
+            
+                var empid = empidField.value;
+            
+                if (jobClass === 'Nurse') {
+                    nurseFields.style.display = 'block';
+                    document.getElementById('nurseEmpid').value = empid;
+                } 
+                else if (jobClass === 'Doctor') {
+                    docFields.style.display = 'block';
+                    document.getElementById('docEmpid').value = empid;
+                }
+                else if (jobClass === 'Admin') {
+                    adminFields.style.display = 'block';
+                    document.getElementById('adminEmpid').value = empid;
+                }
+                else if (jobClass === 'Other HCP') {
+                    otherhcpFields.style.display = 'block';
+                    document.getElementById('otherhcpEmpid').value = empid;
+                }
+                else {
+                    nurseFields.style.display = 'none';
+                    docFields.style.display = 'none';
+                    adminFields.style.display = 'none';
+                    otherhcpFields.style.display = 'none';
+                    document.getElementById('certification').value = '';
+                    document.getElementById('specialty').value = '';
+                    document.getElementById('bc_date').value = '';
+                    document.getElementById('jobtitle').value = '';
+                    document.getElementById('job_title').value = '';
+                }
+            }
+            
+        </script>
+        <div class="employee-records">
+            
+            <!-- <h2 style="margin-top: 23%; margin-left: 39%;">View Employee Records</h2> -->
+            <table border='1' >
+               
+                <!-- Employee records will be displayed here -->
+            </table>
+        </div>
+        <div id="update-form" >
+        <h2 style="margin-top: 28%;margin-left: 39%;" >Update Employee Record</h2>>
+        <div style=" background-color:#0056b3 ; /* Black color with 50% opacity */
+        width: 35%;
+        height: 830px; /* Adjust height as needed */
+        padding: 20px;
+        opacity: 30%;
+        margin-top: 24%;
+        margin-left: 32%;
+        border-radius: 10px;
+    position: relative;
+    position: absolute;"  class="background-box" id="background-box"></div>
+    <form style="margin-top: 32%;" action="update_employee.php" method="post">
+        <label for="empid">Employee ID:</label>
+        <input type="text" placeholder="Enter Employee ID" id="empid" name="empid" required><br>
+
+
+        <label for="fname">First Name:</label>
+        <input type="text" placeholder="Enter First Name" id="fname" name="fname"><br>
+
+        <label for="minit">Middle Initial:</label>
+        <input type="text" placeholder="Enter Middle Initial" id="minit" name="minit"><br>
+
+        <label for="lname">Last Name:</label>
+        <input type="text" placeholder="Enter Last Name" id="lname" name="lname"><br>
+
+        <label for="street">Street:</label>
+        <input type="text" placeholder="Enter Street" id="street" name="street"><br>
+
+        <label for="city">City:</label>
+        <input type="text" placeholder="Enter City" id="city" name="city"><br>
+
+        <label for="state">State:</label>
+        <input type="text" placeholder="Enter State" id="state" name="state"><br>
+
+        <label for="zip_code">ZIP Code:</label>
+        <input type="text" placeholder="Enter ZIP Code" id="zip_code" name="zip_code"><br>
+
+        <label for="salary">Salary:</label>
+        <input type="text" placeholder="Enter Salary" id="salary" name="salary"><br>
+
+        <label for="hire_date">Hire date:</label>
+        <input type="date" placeholder="Enter Hire Date" id="hire_date" name="hire_date"><br>
+
+        <label for="job_class">Job Class:</label>
+        <select id="job_class" name="job_class" onchange=showJobClassFields()>
+            <option value="">Select job class</option>
+            <option value="Nurse">Nurse</option>
+            <option value="Doctor">Doctor</option>
+            <option value="Other HCP">Other HCP</option>
+            <option value="Admin">Admin</option>
+        </select><br>
+
+        <div id="nurse-fields" style="display: none;">
+            <label for="empid">Nurse Empid:</label>
+            <input type="text" placeholder="Enter Nurse Empid" id="nurseEmpid" name="nurse_Empid"><br>
+            <label for="certification">Certification:</label>
+            <input type="text" placeholder="Enter Certification" id="certification" name="certification"><br>
+        </div>
+
+        <div id="doc-fields" style="display: none;">
+            <label for="empid">Doctor Empid:</label>
+            <input type="text" placeholder="Enter Doctor Empid" id="docEmpid" name="docEmpid"><br>
+            <label for="speciality">Speciality:</label>
+            <input type="text" placeholder="Enter Speciality" id="speciality" name="speciality" ><br>
+            <label for="bc_date">BC Date:</label>
+            <input type="date" placeholder="Enter BC Date" id="bc_date" name="bc_date"><br>
+        </div>
+
+        <div id="admin-fields" style="display: none;">
+            <label for="empid">Admin Empid:</label>
+            <input type="text" placeholder="Enter Admin Empid" id="adminEmpid" name="adminEmpid"><br>
+            <label for="jobtitle">Job Title:</label>
+            <input type="text" placeholder="Enter Job Title" id="jobtitle" name="jobtitle" ><br>
+        </div>
+
+        <div id="otherhcp-fields" style="display: none;">
+            <label for="empid">Other HCP Empid:</label>
+            <input type="text" placeholder="Enter Other HCP Empid" id="otherhcpEmpid" name="otherhcpEmpid"><br>
+            <label for="job_title">Job Title:</label>
+            <input type="text" placeholder="Enter Job Title" id="job_title" name="job_title"><br>
+        </div>
+
+        <label for="facid">Facility ID:</label>
+        <input type="text" placeholder="Enter Facility ID" id="facid" name="facid"><br><br>
+
+        <button type="submit">Submit</button>
+        
+    </form>
+
+        </div>
+        <script>
+            function showRegistrationForm() {
+                document.querySelector('.employee-records').style.display = "none";
+                document.getElementById("background-box").style.display = "none";
+                document.getElementById("registration-form").style.display = "block";
+                document.getElementById("update-form").style.display = "none";
+            }
+    
+            function showEmployeeRecords() {
+                document.getElementById("registration-form").style.display = "none";
+                document.querySelector('.employee-records').style.display = "block";
+                document.getElementById("background-box").style.display = "block";
+                document.getElementById("update-form").style.display = "none";
+            }
+    
+            function showUpdateForm() {
+                document.getElementById("registration-form").style.display = "none";
+                document.querySelector('.employee-records').style.display = "none";
+                document.getElementById("background-box").style.display = "block";
+                document.getElementById("update-form").style.display = "block";
+            }
+        </script>
+        
+    </main>
+    <footer>
+    </footer>
+    
+</body>
+</html>
