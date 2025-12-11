@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Morris Health Services</title>
+    <style>
+        html, body{
+            font-family: 'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+        }
+        
+body {
+    background-image: url("https://img.freepik.com/premium-photo/clinical-serenity-empty-hospital-corridor-with-room-background_856434-144.jpg");
+    background-repeat: no-repeat;
+    background-size: cover; /* Cover the entire background */
+    background-position: center; /* Center the background image */
+    padding-bottom: 100%; /* Set padding-bottom to 100% of the width of the body */
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+header {
+    background-color: #007bff;
+    opacity: 40%;
+    width: 100%;
+    height: 14%;
+    margin-top: 2%;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    position: absolute;
+}
+h1{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: bold;
+    position: relative;
+    position:absolute;
+    margin-left: 37%;
+    margin-top: 5.5%;
+}
+
+h2{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: bold;
+    position: relative;
+    position: absolute;
+    margin-top: 16%;
+    margin-left: 38%;
+}
+
+
+table {
+            border-collapse: collapse;
+            width: 100%;
+            position: relative;
+            position: absolute;
+            margin-top: 33%;
+            background-color: rgba(255, 255, 255, 0.8);
+
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        td {
+            background-color: #f2f2f2;
+        }
+        th {
+            background-color: #e0e0e0;
+        }
+        button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 25%;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+form {
+            margin-top: 22%;
+            position: relative;
+            position: absolute;
+        }
+        #report-table {
+            display: none;
+        }
+
+
+    </style>
+    <!-- Include Morris.js and its dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+</head>
+<body>
+    <header>
+    </header>
+    <h1>Morris Health Services</h1>
+    <main>
+        <a href="report.html">
+            <button style="position: relative; position: absolute; margin-top: 16%;  width: 5%; ">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </button>
+        </a>
+
+        <form method="post" onsubmit="showReport(event)">
+            <label for="appointment_date">Select Date:</label>
+            <input type="date" id="date" name="date"><br><br>
+            <label  for="physician">Select Physician:</label>
+            <select id="physician" name="physician">
+                <option value="Cardiologist">Cardiologist</option>
+                <option value="Neurologist">Neurologist</option>
+                <option value="Orthopedic Surgeon">Orthopedic Surgeon</option>
+                <option value="Oncologist">Oncologist</option>
+                <option value="Pediatrician">Pediatrician</option>
+                <option value="Dermetologist">Dermetologist</option>
+                <option value="Gastroenterologist">Gastroenterologist</option>
+                <option value="Endocrinologist">Endocrinologist</option>
+                <option value="Urologist">Urologist</option>
+                <option value="Pulmonologist">Pulmonologist</option>
+                <option value="Psychiatrist">Psychiatrist</option>
+                <option value="Opthamologist">Opthamologist</option>
+                <option value="Rheumetologist">Rheumetologist</option>
+                <option value="Nephrologist">Nephrologist</option>
+                <option value="Radiologist">Radiologist</option>
+                <option value="Gynecologist">Gynecologist</option>
+                <option value="General Surgeon">General Surgeon</option>
+                <option value="Anaesthesiologist">Anaesthesiologist</option>
+                <option value="Otolaryngologist">Otolaryngologist</option>
+                <option value="Pathologist">Pathologist</option>
+                <option value="Neonatologist">Neonatologist</option>
+                <option value="Hematologist">Hematologist</option>
+                <option value="Infectious Disease specialist">Infectious Disease specialist</option>
+                <option value="Emergency Medcine Physician">Emergency Medcine Physician</option>
+                <option value="Physical Medicine and Rehabilitation Specialist">Physical Medicine and Rehabilitation Specialist</option>
+                <!-- Add more options as needed -->
+            </select>
+            <button type="button" onclick="fetchAppointments()">View Appointment</button>
+        </form>
+        <h2>Appointments for Physician</h2>
+        <div id="report-table">
+            <h2 style="margin-top: 30%; margin-left:41% ;">Appointment Details</h2>
+            <table border='1' id="appointment-table">
+                <thead>
+                    <tr>
+                        <th>Patient ID</th>
+                        <th>Patient Name</th>
+                        <th>Date and Time</th>
+                    </tr>
+                </thead>
+                <tbody id="appointment-data"></tbody>
+            </table>
+        </div>        
+        <script>
+            function fetchAppointments() {
+                const appointmentDate = document.getElementById('date').value;
+                const physician = document.getElementById('physician').value;
+            
+                // Create a new XMLHttpRequest object
+                const xhr = new XMLHttpRequest();
+            
+                // Configure the request
+                xhr.open('POST', 'appt_list.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            
+                xhr.onload = function() {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        console.log('Response from server:', xhr.responseText); // Log the response text
+                        try {
+                            const data = JSON.parse(xhr.responseText);
+                            displayAppointments(data);
+                        } catch (error) {
+                            console.error('Error parsing JSON response:', error);
+                        }
+                    } else {
+                        console.error('Request failed with status:', xhr.status);
+                    }
+                };
+            
+                // Define what happens in case of error
+                xhr.onerror = function() {
+                    console.error('Request failed');
+                };
+            
+                // Send the request with form data
+                xhr.send(`date=${encodeURIComponent(appointmentDate)}&physician=${encodeURIComponent(physician)}`);
+            }
+            
+            function displayAppointments(appointments) {
+                const tableBody = document.getElementById('appointment-data');
+                tableBody.innerHTML = ''; // Clear previous data
+            
+                appointments.forEach(appointment => {
+                    const newRow = tableBody.insertRow();
+                    const patientIdCell = newRow.insertCell();
+                    const patientNameCell = newRow.insertCell();
+                    const dateTimeCell = newRow.insertCell();
+            
+                    patientIdCell.textContent = appointment.P_ID;
+                    patientNameCell.textContent = `${appointment.FNAME} ${appointment.LNAME}`;
+                    dateTimeCell.textContent = appointment.APPOINTMENT_DATETIME;
+                });
+            
+                // Show the table
+                document.getElementById('report-table').style.display = 'block';
+            }
+            
+            
+            function showReport(event) {
+            event.preventDefault(); // Prevent form submission
+            document.getElementById("report-table").style.display = "block";
+             }
+        </script>
+     
+     
+    </main>
+    <footer>
+    </footer>
+    
+</body>
+</html>
