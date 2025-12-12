@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Morris Health Services</title>
+    <style>
+        
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    background-image: url("https://img.freepik.com/premium-photo/clinical-serenity-empty-hospital-corridor-with-room-background_856434-144.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%; 
+    height: 200%;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+header {
+    background-color: #007bff;
+    opacity: 40%;
+    width: 100%;
+    height: 14%;
+    margin-top: 2%;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    position: absolute;
+}
+h1{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: bold;
+    position: relative;
+    position:absolute;
+    margin-left: 37%;
+    margin-top: 5.5%;
+}
+
+main {
+    padding: 20px;
+}
+.background-box {
+    background-color:#0056b3 ; /* Black color with 50% opacity */
+    width: 35%;
+    height: 360px; /* Adjust height as needed */
+    padding: 20px;
+    opacity: 30%;
+    margin-top: 15%;
+    margin-left: 30%;
+    border-radius: 10px;
+position: relative;
+position: absolute;
+}
+h2{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: bold;
+    position: relative;
+    position: absolute;
+    margin-top: 16%;
+    margin-left: 40%;
+}
+form{
+    position: relative;
+    position: absolute;
+    margin-top: 20%;
+    margin-left: 37%;
+}
+input [type='text']{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+            width: 200px; /* Set the width of text input fields */
+            height: 30px;
+            padding: 8px; /* Add padding for better appearance */
+}
+label {
+            display: inline-block; /* Display labels and inputs inline */
+            width: 100px; /* Set the width of labels */
+            text-align: right; /* Align label text to the right */
+            margin-right: 10px; /* Add some margin between labels and inputs */
+            margin-bottom: 7%;
+        }
+        button[type="submit"] {
+            display: block; /* Display the submit button as a block element */
+            width: 100%; /* Set the width to fill the entire form width */
+            padding: 10px; /* Add padding for better appearance */
+        }
+        button{
+            padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 25%;
+    opacity: 100%;
+        }
+        button:hover{
+            background-color: #0056b3;
+        }
+
+
+    </style>
+    <!-- Include Morris.js and its dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+</head>
+<body>
+    <header>
+    </header>
+    <h1>Morris Health Services</h1>
+    <main>
+        <div class="background-box">
+        
+        </div>
+        <h2>Appointment Request</h2>
+        <form action="appt_insert.php" method="post">
+            <label for="empid">Employee ID:</label>
+            <input type="text" placeholder="Enter Employee ID" id="empid" name="empid" required><br>
+
+            <label for="facid">Facility ID:</label>
+            <input type="text" placeholder="Enter Faility ID" id="facid" name="facid" required><br>
+
+            <label for="p_id">Patient ID:</label>
+            <input type="text" placeholder="Enter Patient ID" id="p_id" name="p_id" required><br>
+    
+            <label for="date_time">Date:</label>
+        <input type="datetime-local" id="date_time" name="date_time" required><br><br>
+    
+            <button type="submit">Submit</button>
+            
+        </form>
+        
+    </main>
+    <footer>
+    </footer>
+    <script >
+        function showPage(pageName) {
+    // Hide all pages
+    var pages = document.getElementsByClassName('page');
+    for (var i = 0; i < pages.length; i++) {
+        pages[i].style.display = 'none';
+    }
+    // Show the selected page
+    document.getElementById(pageName + '-page').style.display = 'block';
+}
+
+    </script>
+</body>
+</html>
