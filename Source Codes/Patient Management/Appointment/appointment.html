@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Morris Health Services</title>
+    <style>
+        html, body{
+            font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+        }
+        
+        body{
+            background-image: url("https://img.freepik.com/premium-photo/clinical-serenity-empty-hospital-corridor-with-room-background_856434-144.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 240vh; /* Increase the height of the body */
+}
+
+header {
+    background-color: #007bff;
+    opacity: 40%;
+    width: 100%;
+    height: 14%;
+    margin-top: 2%;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    position: absolute;
+}
+h1{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: bold;
+    position: relative;
+    position:absolute;
+    margin-left: 37%;
+    margin-top: 5.5%;
+}
+
+
+.background-box {
+    background-color:#0056b3 ; /* Black color with 50% opacity */
+    width: 35%;
+    height: 400px; /* Adjust height as needed */
+    padding: 20px;
+    opacity: 30%;
+    margin-top: 26%;
+    margin-left: 32%;
+    border-radius: 10px;
+position: relative;
+position: absolute;
+}
+h2{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: bold;
+    position: relative;
+    position: absolute;
+    margin-top: 14%;
+    margin-left: 41%;
+}
+form{
+    position: relative;
+    position: absolute;
+    margin-top: 33%;
+    margin-left: 36%;
+}
+input[type='text']{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+            width: 200px; /* Set the width of text input fields */
+            height: 30px;
+            padding: 8px; /* Add padding for better appearance */
+}
+label {
+            display: inline-block; /* Display labels and inputs inline */
+            width: 100px; /* Set the width of labels */
+            text-align: right; /* Align label text to the right */
+            margin-right: 10px; /* Add some margin between labels and inputs */
+            margin-bottom: 7%;
+        }
+        button[type="submit"] {
+            display: block; /* Display the submit button as a block element */
+            width: 100%; /* Set the width to fill the entire form width */
+            padding: 10px; /* Add padding for better appearance */
+            margin-left: 3%;
+        }
+        button{
+            padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 25%;
+        }
+        button:hover{
+            background-color: #0056b3;
+        }
+        .buttons{
+    position: relative;
+    position: absolute;
+    margin-top: 18%;
+    margin-left: 36.5%;
+    width: 33%;
+}
+table {
+            border-collapse: collapse;
+            width: 100%;
+            position: relative;
+            position: absolute;
+            margin-top: 28%;
+            margin-left: 0%;
+            background-color: rgba(255, 255, 255, 0.8);
+
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+#registration-form {
+            display: none;
+        }
+        .employee-records {
+            display: none;
+        }
+        #update-form{
+            display: none;
+        }
+    </style>
+    <!-- Include Morris.js and its dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+</head>
+<body>
+    <header>
+    </header>
+    <h1>Morris Health Services</h1>
+    <main>
+       
+        <a href="employee.html">
+            <button style="position: relative; position: absolute; margin-top: 18%; margin-left: 1%;  width: 5%; ">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </button>
+        </a>
+    <div class="buttons">
+        <button class="button" id="add-button" onclick="showRegistrationForm()">ADD</button>
+       
+        <form style="width: 25%; margin-top: -9.5%; margin-left: 51%;" action="view_appt.php" method="post">
+            <button  onclick="showFacilityRecords()" type="submit">VIEW</button>
+        </form>
+        
+        <button class="button" onclick="showUpdateForm()">UPDATE</button>
+    </div>
+    <div id="registration-form">
+        <div class="background-box">
+        
+        </div>
+        <h2 style="margin-top: 28%;"> Appointment Request</h2>
+        <form action="appt_insert.php" method="post">
+            <label for="empid">Employee ID:</label>
+            <input type="text" placeholder="Enter Employee ID" id="empid" name="empid" required><br>
+
+            <label for="facid">Facility ID:</label>
+            <input type="text" placeholder="Enter Faility ID" id="facid" name="facid" required><br>
+
+            <label for="p_id">Patient ID:</label>
+            <input type="text" placeholder="Enter Patient ID" id="p_id" name="p_id" required><br>
+    
+            <label for="date_time">Date:</label>
+        <input type="datetime-local" id="date_time" name="date_time" required><br><br>
+    
+            <button type="submit">Submit</button>
+            
+        </form>
+        </div>
+        <div class="employee-records">
+            
+            <h2 style="margin-top: 23%; margin-left: 39%;">View Employee Records</h2>
+            <table  border='1' >
+                
+                <!-- Employee records will be displayed here -->
+            </table>
+        
+        
+        </div>
+        <div id="update-form" >
+        <h2 style="margin-top: 28%;margin-left: 39%;" >Update Appointment</h2>>
+        <div style=" background-color:#0056b3 ; /* Black color with 50% opacity */
+        width: 35%;
+        height: 830px; /* Adjust height as needed */
+        padding: 20px;
+        opacity: 30%;
+        margin-top: 24%;
+        margin-left: 32%;
+        border-radius: 10px;
+    position: relative;
+    position: absolute;"  class="background-box" id="background-box"></div>
+    <form style="margin-top: 32%;" action="appt_update.php" method="post">
+        <label for="inv_id">Invoice ID:</label>
+            <input type="text" placeholder="Enter Invoice ID" id="inv_id" name="inv_id" required><br>
+    
+            <label for="cost">Cost:</label>
+            <input type="text" placeholder="Enter the charges" id="cost" name="new_value" required><br>
+    
+            <button type="submit" value="Update">Submit</button>
+        
+    </form>
+
+        </div>
+        <script>
+            function showRegistrationForm() {
+                document.querySelector('.employee-records').style.display = "none";
+                document.getElementById("background-box").style.display = "none";
+                document.getElementById("registration-form").style.display = "block";
+                document.getElementById("update-form").style.display = "none";
+            }
+    
+            function showEmployeeRecords() {
+                document.getElementById("registration-form").style.display = "none";
+                document.querySelector('.employee-records').style.display = "block";
+                document.getElementById("background-box").style.display = "block";
+                document.getElementById("update-form").style.display = "none";
+            }
+    
+            function showUpdateForm() {
+                document.getElementById("registration-form").style.display = "none";
+                document.querySelector('.employee-records').style.display = "none";
+                document.getElementById("background-box").style.display = "block";
+                document.getElementById("update-form").style.display = "block";
+            }
+        </script>
+        
+    </main>
+    <footer>
+    </footer>
+    
+</body>
+</html>
