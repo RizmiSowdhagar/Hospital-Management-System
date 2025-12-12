@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Morris Health Services</title>
+    <style>
+        html, body{
+            font-family: 'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+        }
+        header {
+    background-color: #007bff;
+    opacity: 40%;
+    width: 100%;
+    height: 14%;
+    margin-top: 2%;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    position: absolute;
+}
+body {
+    background-image: url("https://img.freepik.com/premium-photo/clinical-serenity-empty-hospital-corridor-with-room-background_856434-144.jpg");
+    background-repeat: no-repeat;
+    background-size: cover; /* Cover the entire background */
+    background-position: center; /* Center the background image */
+    padding-bottom: 100%; /* Set padding-bottom to 100% of the width of the body */
+    background-color: rgba(255, 255, 255, 0.5);
+}
+h1{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: bold;
+    position: relative;
+    position:absolute;
+    margin-left: 37%;
+    margin-top: 5.5%;
+}
+h2{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: bold;
+    position: relative;
+    position: absolute;
+    margin-top: 16%;
+    margin-left: 43%;
+}
+table {
+            border-collapse: collapse;
+            width: 100%;
+            position: relative;
+            position: absolute;
+            margin-top: 14%;
+            background-color: white;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #e0e0e0;
+        }
+        td {
+            background-color: #f2f2f2;
+        }
+        button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 25%;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+    </style>
+    <!-- Include Morris.js and its dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+</head>
+<body>
+    <header>
+    </header>
+    <h1>Morris Health Services</h1>
+    <main>
+        <div class="background-box">
+        </div>
+        <a href="mhs project.html">
+            <button style="position: relative; position: absolute; margin-top: 16%;  width: 5%; ">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </button>
+        </a>
+        <h2>Invoice Details</h2>
+        <div class="invoice-info">
+            <div class="invoice-info">
+                <table id="invoices">
+                <th><label style="font-weight: bold; font-size: 20px;" for="date">Date</label><br></th>
+
+                <th><label style="font-weight: bold; font-size: 20px;" for="inv_id">Invoice ID</label><br></th>
+
+                <th><label style="font-weight: bold; font-size: 20px;" for="p_id">Patient ID</label><br></th>
+                <label class="p_id"></label><br>
+        
+                <th><label style="font-weight: bold;  font-size: 20px;" for="patient_name">Patient Name</label><br></th>
+                <label class="patient_name"></label><br>
+        
+                <th><label style="font-weight: bold;  font-size: 20px;" for="address">Address</label><br></th>
+                <label class="address"></label><br>
+        
+                <th><label style="font-weight: bold; font-size: 20px;" for="total_charges">Total Charges</label><br></th>
+                <label class="total_charges"></label><br>
+                </table>
+                <br><br>
+        </div>
+    </main>
+    <footer>
+    </footer>
+    <script>
+    function fetchInvoiceDetails() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'daily_invoice.php', true); // Corrected URL
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var invoiceDetails = JSON.parse(xhr.responseText);
+                    console.log(invoiceDetails);
+                    displayInvoiceDetails(invoiceDetails);
+                } else {
+                    console.error('Error fetching invoice details: ' + xhr.status);
+                }
+            }
+        };
+        xhr.send();
+    }
+
+
+    function displayInvoiceDetails(invoiceDetails) {
+        // Assuming only one invoice detail is returned
+        // Set text content for each label
+
+        const tableBody = document.getElementById('invoices');
+
+            // Create a new table row
+        invoiceDetails.forEach(function(invoice){
+        
+        const newRow = document.createElement('tr');
+
+        const date = document.createElement('td');
+        const invid = document.createElement('td');
+        const patientId = document.createElement('td');
+        const patientName = document.createElement('td');
+        const address = document.createElement('td');
+        const totalCharges = document.createElement('td');
+
+            // Set the cell content
+        
+        date.textContent = invoice.date;
+        invid.textContent = invoice.inv_id;
+        patientId.textContent = invoice.p_id;
+        patientName.textContent = invoice.patient_name;
+        address.textContent = invoice.address;
+        totalCharges.textContent = invoice.total_charges;
+
+            // Append the cells to the row
+        newRow.appendChild(date);
+        newRow.appendChild(invid);
+        newRow.appendChild(patientId);
+        newRow.appendChild(patientName);
+        newRow.appendChild(address);
+        newRow.appendChild(totalCharges);
+
+            // Append the row to the table body
+        tableBody.appendChild(newRow);
+        })
+    }
+
+    // Call the function to fetch invoice details when the page loads
+    window.onload = function () {
+        fetchInvoiceDetails();
+
+    };
+        // Function to handle back button click event
+        document.getElementById('backButton').addEventListener('click', function () {
+            window.location.href = 'patient.html';
+        });
+    </script>
+</body>
+</html>
