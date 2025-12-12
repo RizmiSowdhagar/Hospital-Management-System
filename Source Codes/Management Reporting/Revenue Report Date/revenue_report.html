@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Morris Health Services</title>
+    <style>
+        html, body{
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+            overflow: auto;
+        }
+        
+        body {
+            background-image: url("https://img.freepik.com/premium-photo/clinical-serenity-empty-hospital-corridor-with-room-background_856434-144.jpg");
+            background-repeat: no-repeat;
+            background-size: cover; /* Cover the entire background */
+            background-position: center; /* Center the background image */
+            padding-bottom: 100%; /* Set padding-bottom to 100% of the width of the body */
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        header {
+            background-color: #007bff;
+            opacity: 40%;
+            width: 100%;
+            height: 14%;
+            margin-top: 2%;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            position: absolute;
+        }
+        
+        h1 {
+            color: black;
+            font-family: 'Times New Roman', Times, serif;
+            font-style: bold;
+            position: relative;
+            position: absolute;
+            margin-left: 37%;
+            margin-top: 5.5%;
+        }
+
+        h2 {
+            color: black;
+            font-family: 'Times New Roman', Times, serif;
+            font-style: bold;
+            position: relative;
+            position: absolute;
+            margin-top: 16%;
+            margin-left: 41%;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 25%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        form {
+            margin-top: 22%;
+            position: relative;
+            position: absolute;
+        }
+
+        #report-table {
+            display: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            position: relative;
+            position: absolute;
+            margin-top: 29%;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        td {
+            background-color: #f2f2f2;
+        }
+
+        th {
+            background-color: #e0e0e0;
+        }
+
+        #total-revenue {
+            margin-top: 10px;
+            margin-left: 41%;
+            display: none; /* Initially hidden */
+        }
+
+    </style>
+    <!-- Include Morris.js and its dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+</head>
+<body>
+    <header>
+    </header>
+    <h1>Morris Health Services</h1>
+    <main>
+        <a href="report.html">
+            <button style="position: relative; position: absolute; margin-top: 16%;  width: 5%; ">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </button>
+        </a>
+        <h2>Revenue Report</h2>
+        <form method="post" onsubmit="showReport(event)">
+            <label for="report_date">Select Date:</label>
+            <input type="date" id="date" name="date">
+            <button style="width: 90%; position: relative; 
+            position: absolute;
+            margin-left: 3%; 
+            margin-top: -3%;" type="submit" name="submit">Generate Report</button>
+        </form>
+        <br>
+
+        <div id="report-table" style="display: none;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Facility</th>
+                        <th>Total Revenue</th>
+                    </tr>
+                </thead>
+                <tbody id="report-table-body">
+                    <!-- Table rows will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+        </div>
+    
+        <script>
+            function fetchRevenueDetails(date) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'facility_revenue.php', true);
+                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            try {
+                                var revenueDetails = JSON.parse(xhr.responseText);
+                                displayRevenueDetails(revenueDetails);
+                            } catch (error) {
+                                console.error('Error parsing JSON response:', error);
+                                console.log('Response from server:', xhr.responseText);
+                            }
+                        } else {
+                            console.error('Error fetching revenue details: ' + xhr.status);
+                        }
+                    }
+                };
+                xhr.send('date=' + date);
+            }
+            
+            function displayRevenueDetails(revenueDetails) {
+                var tableBody = document.getElementById('report-table-body');
+                tableBody.innerHTML = ''; // Clear previous data
+                
+                revenueDetails.forEach(function (revenue) {
+                    var newRow = document.createElement('tr');
+                    var facilityNameCell = document.createElement('td');
+                    var totalRevenueCell = document.createElement('td');
+                    
+                    facilityNameCell.textContent = revenue.FACILITY_NAME;
+                    totalRevenueCell.textContent = revenue.TOTAL_REVENUE;
+                    
+                    newRow.appendChild(facilityNameCell);
+                    newRow.appendChild(totalRevenueCell);
+                    
+                    tableBody.appendChild(newRow);
+                });
+    
+                document.getElementById('report-table').style.display = 'table'; // Show the table
+            }
+            document.querySelector('form').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent form submission
+                const date = document.getElementById('date').value; // Corrected id here
+                fetchRevenueDetails(date);
+            });
+            
+            function showReport(event) {
+                event.preventDefault(); // Prevent form submission
+                var reportTable = document.getElementById("report-table");
+                console.log(reportTable); // Add this line to check the value of reportTable
+                if (reportTable) {
+                    reportTable.style.display = "block";
+                } else {
+                    console.error("Element with ID 'report-table' not found.");
+                }
+            }
+            
+        </script>
+    </main>
+    <footer>
+    </footer>
+</body>
+</html>
