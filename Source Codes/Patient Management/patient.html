@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Morris Health Services</title>
+    <style>
+        
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    background-image: url("https://img.freepik.com/premium-photo/clinical-serenity-empty-hospital-corridor-with-room-background_856434-144.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%; 
+    height: 135vh;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+header {
+    background-color: #007bff;
+    opacity: 40%;
+    width: 100%;
+    height: 14%;
+    margin-top: 2%;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    position: absolute;
+}
+h1{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: bold;
+    position: relative;
+    position:absolute;
+    margin-left: 37%;
+    margin-top: 5.5%;
+}
+
+main {
+    padding: 20px;
+}
+.background-box {
+    background-color:#0056b3 ; /* Black color with 50% opacity */
+    width: 40%;
+    height: 440px; /* Adjust height as needed */
+    padding: 20px;
+    opacity: 30%;
+    margin-top: 15%;
+    margin-left: 28%;
+    border-radius: 10px;
+position: relative;
+position: absolute;
+}
+.button-container {
+    text-align: center;
+}
+
+.button-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 25%;
+}
+
+.button-container button:hover {
+    background-color: #0056b3;
+}
+
+.page {
+    display: none;
+}
+h2{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: bold;
+    position: relative;
+    position: absolute;
+    margin-top: 16.5%;
+    margin-left: 39%;
+}
+
+
+    </style>
+    <!-- Include Morris.js and its dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+</head>
+<body>
+    <header>
+    </header>
+    <h1>Morris Health Services</h1>
+    <main>
+        <div class="background-box">
+        
+        </div>
+        <h2>Patient Management Menu</h2>
+        <div class="button-container">
+            
+            <i style=" position: absolute; font-size: 45px; margin-top: 22%; opacity: 100%; margin-left: -14%;" class="fa fa-bars" aria-hidden="true"></i>
+            <a href="create_patient.html">
+            <button style="position: relative; position: absolute; margin-top: 22%; margin-left: -8%; " >Patient</button>
+        </a>
+
+        <i style=" position: absolute; font-size: 45px; margin-top: 27.5%; opacity: 100%; margin-left: -14%;" class="fa fa-bars" aria-hidden="true"></i>
+            <a href="appointment.html">
+            <button style="position: relative; position: absolute; margin-top: 27.5%; margin-left: -8%; " >Appointment</button>
+        </a>
+       
+            <i style="position: absolute; font-size: 45px; margin-top: 33%; margin-left: -14%;" class="fa fa-bars" aria-hidden="true"></i>
+            <a href="create_invoice.html">
+            <button style="position: relative; position: absolute; margin-top: 33%; margin-left: -8%;" >Invoice</button>
+            </a>
+           
+            <i style="position: absolute; font-size: 45px; margin-top: 38.5%; opacity: 100%; margin-left: -14%;" class="fa fa-bars" aria-hidden="true"></i>
+            <a href="invoice.html">
+            <button style="position: relative; position: absolute; margin-top: 38.5%; margin-left: -8%; " >Generate Invoices</button>
+            </a>
+           
+            <a href="mhs project.html">
+                <button style="position: relative; position: absolute; margin-top: 45%; margin-left: -15%; width: 5%; ">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                </button>
+            </a>
+           
+        </div>
+       
+        
+    </main>
+    <footer>
+    </footer>
+    <script >
+        function showPage(pageName) {
+    // Hide all pages
+    var pages = document.getElementsByClassName('page');
+    for (var i = 0; i < pages.length; i++) {
+        pages[i].style.display = 'none';
+    }
+    // Show the selected page
+    document.getElementById(pageName + '-page').style.display = 'block';
+}
+
+    </script>
+</body>
+</html>
